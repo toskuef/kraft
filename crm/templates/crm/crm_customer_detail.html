@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block left_menu %}
+  {% include 'crm/includes/crm_main_menu.html' %}
+{% endblock %}
+{% block content %}
+  <h2>{{ object.last_name }} {{ object.first_name }} {{ object.family_name }}</h2>
+  <div class="mt-3">{{ object.phone }}</div>
+  <div class="mt-3">{{ object.source.source }}</div>
+  <br><br><br>
+  <h2>Адрес</h2>
+  {% for address in address_list %}
+{{ address.country.title }},
+{{ address.area.title }},
+{{ address.region.title }},
+{{ address.town.title }},
+{{ address.street.title }},
+{{ address.num_house }},
+{{ address.num_housing }},
+{{ address.num_door }},
+{{ address.num_level }},
+{{ address.num_flat }}
+  {% endfor %}
+  <h2>Заказы</h2>
+  {% for order in order_list %}
+  {{ order.title }}, {{ order.price }}
+  {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block left_menu %}
+  {% include 'crm/includes/crm_main_menu.html' %}
+{% endblock %}
+{% block content %}
+
+  <div class="row">
+    <div class="col"><h2>Заказы</h2></div>
+
+    <div class="col-3">
+      <button type="button" class="btn btn-info py-1 my-1"
+              data-bs-toggle="modal" data-bs-target="#exampleModal">Создать
+      </button>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+      <tr>
+        <th scope="col">№</th>
+        <th scope="col">Дата заказа</th>
+        <th scope="col">Название</th>
+        <th scope="col">Сумма заказа</th>
+        <th scope="col">Дата установки</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for order in object_list %}
+        <tr>
+
+          <td>{{ order.pk }}</td>
+          <td><a href="#">{{ order.date_create }}</a></td>
+          <td>{{ order.title }}</td>
+          <td>{{ order.price }}</td>
+          <td>{{ order.date_done }}</td>
+
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
