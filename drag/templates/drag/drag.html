@@ -1,0 +1,18 @@
+<h1>Not Started</h1>
+{% for obj in object_list %}
+  {% if obj.name_2 == 'second' %}
+    <div hx-get="/drag/post_2/" hx-target="#not_started">
+    <form class="todo" draggable="true"
+          hx-trigger="click"
+          hx-post="/drag/post/"
+          hx-params="*"
+          hx-target="#no_status"
+    >
+      <input type="hidden" name="drag_id" value="{{ obj.pk }}">
+      {{ obj.name }}
+      <span class="close">&times;</span>
+    </form>
+    </div>
+  {% endif %}
+{% endfor %}
+

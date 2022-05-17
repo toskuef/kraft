@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block left_menu %}
+  {% include 'supply/includes/supply_main_menu.html' %}
+{% endblock %}
+{% block content %}
+
+
+  <!-- Modal -->
+  {#{% include 'supply/includes/supply_modal_form.html' with title='Новый клиент' %}#}
+
+
+
+
+  <div class="todo-container row">
+    <div class="status col"
+         id="no_status"
+    >
+      {% include 'supply/includes/supply_is_not_order.html' %}
+    </div>
+    <div class="status col"
+         id="not_started"
+    >
+      {% include 'supply/includes/supply_is_order.html' %}
+    </div>
+  </div>
+
+{% include 'supply/includes/supply_modal_is_booking.html' %}
+
+{% endblock %}
+

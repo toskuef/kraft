@@ -1,0 +1,15 @@
+<h1>Заказано</h1>
+{#<button id="add_btn" data-target-modal="#todo_form">+ Add Todo</button>#}
+{% for obj in purchases %}
+    <div hx-get="/need/is_order" hx-target="#is_order">
+    <form hx-trigger="click"
+          hx-post="/need/is_not_order/"
+          hx-params="*"
+          hx-target="#is_not_order">
+      <input type="hidden" name="need_pk" value="{{ obj.pk }}">
+      {{ obj.name }}
+      {{ obj.total }}
+    </form>
+    </div>
+{% endfor %}
+

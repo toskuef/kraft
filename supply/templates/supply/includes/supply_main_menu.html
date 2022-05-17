@@ -1,0 +1,43 @@
+{% with request.resolver_match.view_name as view_name %}
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link {% if view_name == 'supply:supply_nomenclature' %} active {% endif %}"
+         href="{% url 'supply:supply_nomenclature' %}">
+        <span data-feather="home"></span>
+        Номенклатура
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link "
+         href="{% url 'supply:supply_purchase' %}">
+        <span data-feather="file"></span>
+        Закупки
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {% if view_name == 'supply:supply_contractors' %} active {% endif %}"
+         href="{% url 'supply:supply_contractors' %}">
+        <span data-feather="shopping-cart"></span>
+        Поставщики
+      </a>
+    </li>
+  </ul>
+
+  <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Склады</span>
+          <a class="link-secondary" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+        {% for store in storages %}
+          <li class="nav-item">
+            <a class="nav-link {% if storage_id == store.id %} active {% endif %}"
+         href="{% url 'supply:supply_storage' storage_id=store.id %}">
+              <span data-feather="file-text"></span>
+              {{ store }}
+            </a>
+          </li>
+        {% endfor %}
+        </ul>
+{% endwith %}

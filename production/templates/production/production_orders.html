@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block left_menu %}
-  {% include 'crm/includes/crm_main_menu.html' %}
+  {% include 'production/includes/production_main_menu.html' %}
 {% endblock %}
 {% block content %}
 
   <div class="row">
-    <div class="col"><h2>Заказы</h2></div>
+    <div class="col"><h2>Заказы на производство</h2></div>
 
     <div class="col-3">
       <button type="button" class="btn btn-info py-1 my-1"
@@ -18,10 +18,8 @@
       <thead>
       <tr>
         <th scope="col">№</th>
-        <th scope="col">Дата заказа</th>
+
         <th scope="col">Название</th>
-        <th scope="col">Сумма заказа</th>
-        <th scope="col">Дата установки</th>
       </tr>
       </thead>
       <tbody>
@@ -29,10 +27,8 @@
         <tr>
 
           <td>{{ order.pk }}</td>
-          <td>{{ order.date_create }}</td>
-          <td><a href="#">{{ order.title }}</a></td>
-          <td>{{ order.price }}</td>
-          <td>{{ order.date_done }}</td>
+          <td><a href="#">{{ order.name.title }}</a></td>
+
 
         </tr>
       {% endfor %}
@@ -40,5 +36,5 @@
     </table>
   </div>
 
-  {% include 'crm/includes/crm_modal_form.html' with title='Новый заказ' %}
+  {% include 'production/includes/production_modal_form.html' with title='Новый заказ' %}
 {% endblock %}

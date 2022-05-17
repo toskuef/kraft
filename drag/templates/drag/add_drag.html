@@ -1,0 +1,18 @@
+<h1>No Status</h1>
+<button id="add_btn" data-target-modal="#todo_form">+ Add Todo</button>
+{% for obj in object_list %}
+  {% if obj.name_2 == 'first' %}
+    <div hx-get="/drag/post/" hx-target="#no_status">
+    <form class="todo" draggable="true"
+          hx-trigger="click"
+          hx-post="/drag/post_2/"
+          hx-params="*"
+          hx-target="#not_started">
+      <input type="hidden" name="drag_id" value="{{ obj.pk }}">
+      {{ obj.name }}
+      <span class="close">&times;</span>
+    </form>
+    </div>
+  {% endif %}
+{% endfor %}
+

@@ -31,10 +31,6 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'main.apps.MainConfig',
-    'crm.apps.CrmConfig',
-    'users.apps.UsersConfig',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'widget_tweaks',
+    'django_extensions',
 
+    'main.apps.MainConfig',
+    'crm.apps.CrmConfig',
+    'users.apps.UsersConfig',
+    'production.apps.ProductionConfig',
+    'supply.apps.SupplyConfig',
+    'drag.apps.DragConfig'
 ]
 
 MIDDLEWARE = [

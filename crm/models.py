@@ -15,9 +15,15 @@ class Customer(models.Model):
         verbose_name='Источник',
     )
 
+    def __str__(self):
+        return f'{self.last_name} {self.first_name} {self.family_name}'
+
 
 class SourceCustomer(models.Model):
     source = models.CharField(max_length=15, verbose_name='Источник')
+
+    def __str__(self):
+        return self.source
 
 
 class Address(models.Model):
@@ -157,6 +163,9 @@ class Order(models.Model):
         on_delete=models.PROTECT,
         verbose_name='клиент',
     )
+
+    def __str__(self):
+        return self.title
 
 
 class TypePay(models.Model):

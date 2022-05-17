@@ -15,6 +15,8 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
         crossorigin="anonymous">
 
+
+
   <style>
       .bd-placeholder-img {
           font-size: 1.125rem;
@@ -34,6 +36,10 @@
 
   <!-- Custom styles for this template -->
   <link href={% static 'css/dashboard.css' %} rel="stylesheet">
+{#<link rel="stylesheet" href="{% static 'css/style.css' %}"/>#}
+      <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.6.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 </head>
 <body>
 
@@ -46,7 +52,9 @@
           aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
+  <form action="{% url 'crm:crm_customers' %}" class="w-100">
+<input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" name="search">
+    </form>
   <div class="navbar-nav me-5">
     <div class="nav-item text-nowrap me-3">
       <a class="nav-link px-3" href="{% url 'users:login' %}">{{ user.username }}</a>

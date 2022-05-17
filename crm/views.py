@@ -2,7 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Customer, Address, Order
 from django.views.generic import ListView, DetailView, FormView
-from .forms import CustomerForm
+from .forms import CustomerForm, OrderForm
+from django.db.models import Q
 
 
 class CustomerList(LoginRequiredMixin, ListView, FormView):
@@ -10,11 +11,17 @@ class CustomerList(LoginRequiredMixin, ListView, FormView):
     form_class = CustomerForm
     template_name = 'crm/crm_customers.html'
     success_url = '/crm'
-    login_url = '/auth/login/'
+    # login_url = '/auth/login/'
 
     def form_valid(self, form):
         form.save()
         return super(CustomerList, self).form_valid(form)
+
+    def get_queryset(self):
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            return self.model.objects.filter(Q(last_name__iregex=search_query))
+        return Customer.objects.all()
 
 
 class CustomerDetail(DetailView):
@@ -33,6 +40,12 @@ class AddressList(ListView):
     template_name = 'crm/crm_addresses.html'
 
 
-class OrderList(ListView):
+class OrderList(ListView, FormView):
     model = Order
     template_name = 'crm/crm_orders.html'
+    form_class = OrderForm
+    success_url = '/crm/orders'
+
+    def form_valid(self, form):
+        form.save()
+        return super(OrderList, self).form_valid(form)

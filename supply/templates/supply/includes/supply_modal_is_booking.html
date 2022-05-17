@@ -1,0 +1,40 @@
+<div class="modal fade" id="exampleModal" tabindex="-1"
+       aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+<div hx-include="#checked-contacts" hx-target="#tbody">
+    <a class="btn" hx-post="{% url 'supply:supply_purchase_is_booking' %}">Activate</a>
+    <a class="btn" hx-post="{% url 'supply:supply_purchase_is_not_booking' %}">Deactivate</a>
+  </div>
+
+  <form id="checked-contacts">
+    <table>
+      <thead>
+      <tr>
+        <th></th>
+        <th>Название</th>
+        <th>Количество</th>
+        <th>Заказ</th>
+        <th>Бронь</th>
+      </tr>
+      </thead>
+      <tbody id="tbody">
+      {% for item in specification %}
+        {% if item.nomenclature.name == 'Подъемники' %}
+          <tr class="">
+            <td><input type='checkbox' name='ids' value='{{ item.pk }}'></td>
+            <td>{{ item.nomenclature.name }}</td>
+            <td>{{ item.count }}</td>
+            <td>{{ item.order.name }}</td>
+            <td>{{ item.is_booking }}</td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+      </tbody>
+ </table>
+  </form>
+
+      </div>
+    </div>
+</div>
