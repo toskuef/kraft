@@ -1,0 +1,68 @@
+{% extends 'crm/includes/crm_card_detail.html' %}
+{% load static %}
+
+{% block title_card %}
+  Карточка заказа
+  {% if object.status_order.name != 'Подписан' %}
+    <form action="{{ request.get_full_path }}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="status_order" value="Подписать">
+      <button class="btn btn-info" type="submit">ПОДПИСАТЬ</button>
+    </form>
+  {% endif %}
+{% endblock %}
+
+{% block profile-info-rows %}
+  <div class="profile-info-row">
+    <div class="profile-info-name">Заказ</div>
+    <div class="profile-info-value">
+      <span>{{ object.title }}</span>
+    </div>
+  </div>
+
+  <div class="profile-info-row">
+    <div class="profile-info-name">Сумма заказа</div>
+    <div class="profile-info-value">
+                  <span>{% if object.price %}{{ object.price }}
+                    ₽{% endif %}</span>
+    </div>
+  </div>
+
+  <div class="profile-info-row">
+    <div class="profile-info-name">Предоплата</div>
+    <div class="profile-info-value">
+                  <span>{% if object.pre_pay %}{{ object.pre_pay }}
+                    ₽{% endif %}</span>
+    </div>
+  </div>
+
+  <div class="profile-info-row">
+    <div class="profile-info-name">Дата подписания заказа</div>
+    <div class="profile-info-value">
+      <span>{{ object.date_create }}</span>
+    </div>
+  </div>
+
+  <div class="profile-info-row">
+    <div class="profile-info-name">Дата сдачи заказа</div>
+    <div class="profile-info-value">
+                  <span>{% if object.date_done %}
+                    {{ object.date_done }}{% endif %}</span>
+    </div>
+  </div>
+{% endblock %}
+
+{% block right_block_content %}
+  <div class="col">
+    <h2>Изделия</h2>
+    <form action="{{ request.get_full_path }}" method="post">
+      {% csrf_token %}
+      {{ new_product.title }}
+      <button type="submit">Новое изделие</button>
+    </form>
+    {% for product in products %}
+      <div class="pt-2 px-2 bg-light mt-1"
+           onclick="document.location = '{% url 'crm:crm_product_detail' product.pk %}'">{{ product.title }}</div>
+    {% endfor %}
+  </div>
+{% endblock %}

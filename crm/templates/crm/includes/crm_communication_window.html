@@ -1,0 +1,107 @@
+
+
+
+{% for date in dates_context %}
+  <div class="row mt-2 sticky blur shadow-blur border-radius-xl">
+    <div class="col-md-12 text-center">
+      <span class="badge text-dark">{{ date }}</span>
+    </div>
+  </div>
+  {% for content in context %}
+    {% if date == content.date.date %}
+      {% if content.get_my_model_name == 'Message' %}
+        {% if content.out == 0 %}
+          <div class="row justify-content-start mb-2 mt-1">
+            <div class="col-auto">
+              <div class="card ">
+                <div class="card-body py-2 px-3">
+                  <p class="mb-1 text-xs">
+                    {{ content.text }}
+                  </p>
+                  <div class="d-flex align-items-center text-sm opacity-6">
+                    <i class="ni ni-check-bold text-sm me-1"></i>
+                    <small>{{ content.date }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- Сообщение входящее -->
+        {% else %}
+          <div class="row justify-content-end text-right mb-2 mt-1">
+            <div class="col-auto">
+              <div class="card bg-gray-200">
+                <div class="card-body py-2 px-3">
+                  <p class="mb-1 text-xs">
+                    {{ content.text }}
+                  </p>
+                  <div class="d-flex align-items-center justify-content-end text-sm opacity-6">
+                    <i class="ni ni-check-bold text-sm me-1"></i>
+                    <small>{{ content.date }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- Сообщение исходящее -->
+        {% endif %}
+      {% elif content.get_my_model_name == 'task' %}
+        <div class="d-flex mb-2 mt-1 card flex-row w-100 bg-dark ">
+          <div>
+            <div class="icon icon-shape bg-danger-soft shadow text-center border-radius-md shadow-none">
+              <i class="ni ni-money-coins text-lg text-danger text-gradient opacity-10"
+                 aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="ms-3 ">
+            <div class="numbers">
+              <h6 class="mb-1 text-white text-sm">{{ content.task }}</h6>
+              <span class="text-white-50 text-sm">{{ content.date }}</span>
+            </div>
+
+          </div>
+          {% if task.is_done %}
+            <i class="ni ni-check-bold text-success text-gradient align-self-center ms-auto p-2 bd-highlight"></i>
+          {% else %}
+            <div class="form-check align-self-center ms-auto p-2 bd-highlight">
+              <button id="done-task"
+                      class="btn btn-danger text-xxs m-0 p-1"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal">Завершить
+                <input type="hidden" id="pk-task" value="{{ task.pk }}">
+                <input type="hidden" id="name-task"
+                       value="{{ task.type_task }} - {{ task.task }}">
+              </button>
+            </div>
+          {% endif %}
+        </div> <!-- Задача -->
+      {% elif content.get_my_model_name == 'comment' %}
+        <div class="d-flex card flex-row mb-2 mt-1 bg-gradient-light">
+          <div class="flex-grow-1 ms-3">
+            <h6 class="h5 mt-0">{{ content.staff }}</h6>
+            <p class="text-sm">{{ content.text }}</p>
+          </div>
+        </div> <!-- Комментарий -->
+      {% elif content.get_my_model_name == 'customer' %}
+        <div class="d-flex card flex-row mb-2 mt-1 bg-gradient-success">
+          <div class="flex-grow-1 ms-3">
+            <h6 class="h5 mt-0">Создан клиент</h6>
+            <p class="text-sm">{{ content.date }}</p>
+          </div>
+        </div> <!-- Создан клиент -->
+      {% elif content.get_my_model_name == 'order' %}
+        <div class="d-flex card flex-row mb-2 mt-1 bg-warning">
+          <div class="flex-grow-1 ms-3">
+            <h6 class="h5 mt-0">Новый заказ</h6>
+            <p class="text-sm">{{ content.title }}</p>
+          </div>
+        </div> <!-- Создан заказ -->
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+<script>
+
+    var objDiv = document.getElementById("parentDiv");
+    objDiv.scrollTop = objDiv.scrollHeight;
+
+
+</script>

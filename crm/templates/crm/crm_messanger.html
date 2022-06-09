@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+{% load tz %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}
+Мессенджер
+{% endblock %}
+
+<!-- Блок левого меню -->
+{% block sidebar %}
+  {% include 'crm/includes/crm_sidebar.html' %}
+{% endblock %}
+
+<!-- Блок навигации -->
+{% block navigation %}
+  {% include 'crm/includes/crm_navigation.html' %}
+{% endblock %}
+
+<!-- Блок контента -->
+{% block content %}
+
+ <div class="container-fluid py-4">
+<div class="row">
+<div class="col-4">
+<div class="card blur shadow-blur max-height-vh-70  mb-5 mb-lg-0">
+<div class="card-header p-3">
+<h6>Friends</h6>
+<input type="email" class="form-control" placeholder="Search Contact" aria-label="Email">
+</div>
+<div class="card-body p-2 overflow-auto overflow-x-hidden">
+
+<a href="javascript:;" class="d-block p-2 border-radius-lg bg-gradient-primary">
+<div class="d-flex p-2">
+<img alt="Image" src="../../assets/img/team-2.jpg" class="avatar shadow">
+<div class="ms-3">
+<div class="justify-content-between align-items-center">
+<h6 class="text-white mb-0">Charlie Watson
+<span class="badge badge-success"></span>
+</h6>
+<p class="text-white mb-0 text-sm">Typing...</p>
+</div>
+</div>
+</div>
+</a>
+
+{% for dialog in dialogs %}
+<a href="#" class="d-block p-2"  hx-get="{% url 'crm:crm_messenger_dialog' dialog.id %}" hx-target="#dialogs">
+<div class="d-flex p-2">
+{#<img alt="Image" src="../../assets/img/team-1.jpg" class="avatar shadow">#}
+<div class="ms-3">
+<h6 class="mb-0">{{ dialog.first_name }} {{ dialog.last_name }}</h6>
+<p class="text-muted text-xs mb-2">1 hour ago</p>
+<span class="text-muted text-sm col-11 p-0 text-truncate d-block">Computer users and programmers</span>
+</div>
+</div>
+</a>
+  {% endfor %}
+</div>
+</div>
+</div>
+<div class="col-8" id="dialogs">
+  {% include 'crm/crm_messenger_dialog.html' %}
+</div>
+
+
+    <script>
+
+      var objDiv = document.getElementById("parentDiv");
+      objDiv.scrollTop = objDiv.scrollHeight;
+
+
+
+  </script>
+
+
+{% endblock %}

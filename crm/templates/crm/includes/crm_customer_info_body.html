@@ -1,0 +1,35 @@
+
+            <p class="text-sm">
+              <span class="badge badge-sm bg-gradient-success">Действующий</span>
+            </p>
+            <hr class="horizontal gray-light my-2">
+            <ul class="list-group">
+              <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong
+                      class="text-dark">ФИО:</strong> &nbsp; {{ customer }}
+              </li>
+              <li class="list-group-item border-0 ps-0 text-sm"><strong
+                      class="text-dark">Телефон:</strong>
+                &nbsp; {{ customer.phone }}</li>
+              <li class="list-group-item border-0 ps-0 text-sm"><strong
+                      class="text-dark">Источник:</strong>
+                &nbsp; {{ customer.source.source }}</li>
+              <li class="list-group-item border-0 ps-0 text-sm"><strong
+                      class="text-dark">Дата создания:</strong>
+                &nbsp; {{ customer.date_create }}</li>
+              <li class="list-group-item border-0 ps-0 pb-0">
+                <strong class="text-dark text-sm">Социальные сети:</strong>
+                &nbsp;
+                <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0"
+                   href="https://vk.com/id66768750">
+                  <i class="fab fa-facebook fa-lg"></i>
+                </a>
+                <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0"
+                   href="javascript:;">
+                  <i class="fab fa-twitter fa-lg"></i>
+                </a>
+                <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0"
+                   href="javascript:;">
+                  <i class="fab fa-instagram fa-lg"></i>
+                </a>
+              </li>
+            </ul>

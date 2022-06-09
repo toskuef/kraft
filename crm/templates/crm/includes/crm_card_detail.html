@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block left_menu %}
+  {% include 'crm/includes/crm_main_menu.html' %}
+{% endblock %}
+
+{% block content %}
+  <link rel="stylesheet" href="{% static 'css/card_order_in_customer.css' %}">
+  <link rel="stylesheet" href="{% static 'css/customer_info.css' %}">
+
+  <!-- Весь контент карточки -->
+  <div class="row">
+    <!-- Левая часть карточки -->
+    <div class="col me-5">
+      <h2>
+        {% block title_card %}{% endblock %}
+      </h2>
+      <div class="profile-user-info">
+
+        {% block profile-info-rows %}
+        {% endblock %}
+
+      </div>
+
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-home-tab"
+                  data-bs-toggle="tab" data-bs-target="#nav-home"
+                  type="button" role="tab"
+                  aria-controls="nav-home" aria-selected="true">
+            Комментарии
+          </button>
+          <button class="nav-link" id="nav-profile-tab"
+                  data-bs-toggle="tab" data-bs-target="#nav-profile"
+                  type="button" role="tab" aria-controls="nav-profile"
+                  aria-selected="false">
+            Задачи
+          </button>
+        </div>
+      </nav>
+
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div class="row d-flex justify-content-center mt-3">
+            <div class="col">
+              <div class="card shadow-0 border"
+                   style="background-color: #f0f2f5;">
+                <div class="card-body p-4">
+                  <div class="form-outline mb-4">
+                    <form action="{{ request.get_full_path }}"
+                          method="post">
+                      {% csrf_token %}
+                      {{ new_comment.text }}
+                      <button type="submit">Новый коментарий</button>
+                    </form>
+                  </div>
+                  {% for comment in comments %}
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <p>{{ comment.text }}</p>
+
+                        <div class="d-flex justify-content-between">
+                          <div class="d-flex flex-row align-items-center">
+                            <p class="small mb-0 ms-2">{{ comment.staff.username }}</p>
+                          </div>
+                          <div class="d-flex flex-row align-items-center">
+                            <p class="small text-muted mb-0">{{ comment.date_create }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class="row d-flex justify-content-center mt-3">
+            <div class="col">
+              <div class="card shadow-0 border"
+                   style="background-color: #f0f2f5;">
+                <div class="card-body p-4">
+                  <div class="form-outline mb-4">
+                    <form action="{{ request.get_full_path }}"
+                          method="post">
+                      {% csrf_token %}
+                      {{ new_task.task }}
+                      <button type="submit">Новая задача</button>
+                    </form>
+                  </div>
+                  {% for task in tasks %}
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <p>{{ task.task }}</p>
+
+                        <div class="d-flex justify-content-between">
+                          <div class="d-flex flex-row align-items-center">
+                            <p class="small mb-0 ms-2">{{ task.staff.username }}</p>
+                          </div>
+                          <div class="d-flex flex-row align-items-center">
+                            <p class="small text-muted mb-0">{{ task.date_create }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Правая часть карточки -->
+    {% block right_block_content %}
+    {% endblock %}
+  </div>
+
+{% endblock %}
+
+
+
+{#<nav aria-label="breadcrumb">#}
+{#      <ol class="breadcrumb">#}
+{#        <li class="breadcrumb-item"><a href="{% url 'crm:crm_customers' %}">Все#}
+{#          клиенты</a></li>#}
+{#        <li class="breadcrumb-item"><a#}
+{#                href="{% url 'crm:crm_customer_detail' order.customer.pk %}">#}
+{#          {{ object.customer.last_name }} {{ object.customer.first_name }} {{ object.customer.family_name }}#}
+{#        </a></li>#}
+{#        <li class="breadcrumb-item active"#}
+{#            aria-current="page">{{ object.title }}</li>#}
+{#      </ol>#}
+{#    </nav>#}
+
+

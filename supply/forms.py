@@ -2,7 +2,7 @@ from django import forms
 
 from dynamic_forms import DynamicField, DynamicFormMixin
 
-from .models import Category, Group, Nomenclature
+from .models import Category, Group, Nomenclature, Specification
 
 
 class NomenclatureForm(DynamicFormMixin, forms.ModelForm):
@@ -27,4 +27,11 @@ class NomenclatureForm(DynamicFormMixin, forms.ModelForm):
 
     class Meta:
         model = Nomenclature
+        fields = '__all__'
+
+
+class NeedConfirmForm(forms.ModelForm):
+
+    class Meta:
+        model = Specification
         fields = '__all__'

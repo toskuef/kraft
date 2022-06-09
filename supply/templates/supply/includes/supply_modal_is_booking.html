@@ -1,40 +1,82 @@
-<div class="modal fade" id="exampleModal" tabindex="-1"
-       aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
+{% load widget_tweaks %}
 
-<div hx-include="#checked-contacts" hx-target="#tbody">
-    <a class="btn" hx-post="{% url 'supply:supply_purchase_is_booking' %}">Activate</a>
-    <a class="btn" hx-post="{% url 'supply:supply_purchase_is_not_booking' %}">Deactivate</a>
+<div id="modal-backdrop" class="modal-backdrop fade show" style="display:block;"></div>
+
+<div id="modal" class="modal fade show" tabindex="-1" style="display:block;">
+	<div class="modal-dialog modal-dialog-centered">
+	  <div class="modal-content">
+		<form action="{{ request.get_full_path }}" method="post">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Подтвердить</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"
+                  aria-label="Close" onclick="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          {% csrf_token %}
+          <table>
+            <thead>
+            <tr>
+              <th></th>
+              <th>Название</th>
+              <th>Количество</th>
+              <th>Заказ</th>
+              <th>Клиент</th>
+
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            {% for item in specification %}
+
+                <tr class="">
+                  <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel"
+                             checked="true" name='ids'
+                             value='{{ item.pk }}'></td>
+                  <td>{{ item.nomenclature.name }}</td>
+                  <td>{{ item.count }}</td>
+                  <td>{{ item.order.name }}</td>
+                  <td>{{ item.order.name.customer.last_name }} {{ item.order.name.customer.first_name }}</td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+          </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Создать</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+
+        </div>
+      </form>
+	  </div>
+	</div>
   </div>
 
-  <form id="checked-contacts">
-    <table>
-      <thead>
-      <tr>
-        <th></th>
-        <th>Название</th>
-        <th>Количество</th>
-        <th>Заказ</th>
-        <th>Бронь</th>
-      </tr>
-      </thead>
-      <tbody id="tbody">
-      {% for item in specification %}
-        {% if item.nomenclature.name == 'Подъемники' %}
-          <tr class="">
-            <td><input type='checkbox' name='ids' value='{{ item.pk }}'></td>
-            <td>{{ item.nomenclature.name }}</td>
-            <td>{{ item.count }}</td>
-            <td>{{ item.order.name }}</td>
-            <td>{{ item.is_booking }}</td>
-          </tr>
-        {% endif %}
-      {% endfor %}
-      </tbody>
- </table>
-  </form>
+<script>
+function closeModal() {
+	var container = document.getElementById("modals-here")
+	var backdrop = document.getElementById("modal-backdrop")
+	var modal = document.getElementById("modal")
 
-      </div>
-    </div>
-</div>
+	modal.classList.remove("show")
+	backdrop.classList.remove("show")
+
+	setTimeout(function() {
+		container.removeChild(backdrop)
+		container.removeChild(modal)
+	}, 200)
+}
+
+{#const div = document.querySelector( '#popup');#}
+{#document.addEventListener( 'click', (e) => {#}
+{#	const withinBoundaries = e.composedPath().includes(div);#}
+{##}
+{#	if ( ! withinBoundaries ) {#}
+{#		closeModal(); // скрываем элемент т к клик был за его пределами#}
+{#	}#}
+{#})#}
+
+
+</script>
+
+

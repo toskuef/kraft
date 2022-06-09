@@ -1,17 +1,22 @@
-<h1>Заказать</h1>
+{#<h1>Заказать</h1>#}
 {#<button id="add_btn" data-target-modal="#todo_form">+ Add Todo</button>#}
-{% for obj in object_list %}
-    <div hx-get="/need/is_not_order" hx-target="#is_not_order">
-    <form hx-trigger="click"
-          hx-get="/21/"
+{#{% for obj in object_list %}#}
+{#    <div hx-get="/need/is_not_order" hx-target="#is_not_order">#}
+{#    <form#}
+{#            hx-trigger="click"#}
+{#          hx-get="/21/"#}
 {#          hx-post="/need/is_order/"#}
 {#          hx-params="*"#}
 {#          hx-target="#is_order"#}
-    data-bs-toggle="modal" data-bs-target="#exampleModal">
-      <input type="hidden" name="need_pk" value="{{ obj.pk }}">
-      {{ obj.name }}
-      {{ obj.total }}
-    </form>
-    </div>
-{% endfor %}
+{#    data-bs-toggle="modal" data-bs-target="#exampleModal">#}
+{#      <input type="hidden" name="need_pk" value="{{ obj.pk }}">#}
+{#      {{ obj.name }}#}
+{#      {{ obj.total }}#}
+{#    </form>#}
+{##}
+{#  <button type="button" class="btn btn-info py-1 my-1"#}
+{#              data-bs-toggle="modal" data-bs-target="#exampleModal">{{ obj.name }}#}
+{#      </button>#}
+{#    </div>#}
+{#{% endfor %}#}
 

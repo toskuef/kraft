@@ -1,0 +1,54 @@
+{% extends 'crm/includes/crm_card_detail.html' %}
+{% load static %}
+
+{% block title_card %}
+  Изделие - {{ object.title }}
+{% endblock %}
+
+{% block profile-info-rows %}
+
+  <div class="profile-info-row">
+    <div class="profile-info-name">Заказ</div>
+    <div class="profile-info-value">
+      <span>{{ object.order.title }}</span>
+    </div>
+  </div>
+
+  <div class="profile-info-row">
+    <div class="profile-info-name">Стоимость изделия</div>
+    <div class="profile-info-value">
+      <span>{% if object.order.price %}{{ object.order.price }}
+        ₽{% endif %}</span>
+    </div>
+  </div>
+{% endblock %}
+
+{% block right_block_content %}
+  <div class="col">
+    <div class="row">
+      <h3>ЗАМЕРЫ</h3>
+      <form action="{{ request.get_full_path }}" method="post"
+            enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ new_measuring.as_p }}
+        <button type="submit">Добавить замер</button>
+      </form>
+      {% for measuring in measurings %}
+        <a href='{{ measuring.get_absolute_file_upload_url }}' target="_blank">123</a>
+      {% endfor %}
+    </div>
+    <br><br><br>
+    <div class="row">
+      <h3>ПРОЕКТЫ</h3>
+      <form action="{{ request.get_full_path }}" method="post"
+            enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ new_project.as_p }}
+        <button type="submit">Добавить проект</button>
+      </form>
+      {% for project in projects %}
+        <a href='{{ project.get_absolute_file_upload_url }}' target="_blank">123</a>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

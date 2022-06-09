@@ -113,6 +113,7 @@ class Specification(models.Model):
     )
     count = models.PositiveSmallIntegerField()
     is_booking = models.BooleanField(default=False)
+    is_order = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.order.name} - {self.nomenclature} + {self.count}'

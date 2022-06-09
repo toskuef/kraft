@@ -1,0 +1,36 @@
+<div class="col">
+  <div class="card card-margin">
+    <div class="card-header no-border">
+      <h5 class="card-title">Мебель в спальню</h5>
+    </div>
+    <div class="card-body pt-0">
+      <div class="widget-49">
+        <div class="widget-49-title-wrapper">
+          <div class="widget-49-date-primary">
+            <span class="widget-49-date-day">09</span>
+            <span class="widget-49-date-month">apr</span>
+          </div>
+          <div class="widget-49-meeting-info">
+            <span class="widget-49-pro-title">Сумма заказа: {{ order.price }}</span>
+            <span class="widget-49-meeting-time">Дата подписания: </span>
+          </div>
+        </div>
+        <ol class="widget-49-meeting-points">
+          {% for product in products %}
+            {% if product.order == order %}
+            <li class="widget-49-meeting-item">
+            <span>
+              {{ product.title }}
+            </span>
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ol>
+        <div class="widget-49-meeting-action">
+          <a href="{% url 'crm:crm_order_detail' order.pk %}"
+             class="btn btn-sm btn-flash-border-primary">Перейти к заказу</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

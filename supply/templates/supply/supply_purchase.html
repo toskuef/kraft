@@ -5,26 +5,63 @@
 {% block content %}
 
 
-  <!-- Modal -->
-  {#{% include 'supply/includes/supply_modal_form.html' with title='Новый клиент' %}#}
+  <div class="todo-container col">
+    <div class="status">
+      <h1>Потребность</h1>
 
+  {% for obj in object_list %}
+    <div class="card mt-2" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{ obj.name }} - {{ obj.total }}</h5>
+    <button
+	hx-get="is_not_booking/{{ obj.pk }}/"
+	hx-target="#modals-here"
+	hx-trigger="click"
+	class="btn btn-primary"
+	_="on htmx:afterOnLoad wait 10ms then add .show to #modal then add .show to #modal-backdrop">Добавить в лист заказа</button>
 
-
-
-  <div class="todo-container row">
-    <div class="status col"
-         id="no_status"
-    >
-      {% include 'supply/includes/supply_is_not_order.html' %}
-    </div>
-    <div class="status col"
-         id="not_started"
-    >
-      {% include 'supply/includes/supply_is_order.html' %}
-    </div>
   </div>
+</div>
 
-{% include 'supply/includes/supply_modal_is_booking.html' %}
+{% endfor %}
+<div id="modals-here"></div>
+</div>
+</div>
+
+  <div class="todo-container col">
+  <form action="{% url 'supply:supply_create' %}" method="post">
+  {% csrf_token %}
+  <select name="contractor">
+    {% for contractor in contractors %}
+  <option value="{{ contractor.pk }}">{{ contractor.name }}</option>
+    {% endfor %}
+</select>
+  <button class="btn btn-primary" type="submit">Оформить заказ</button>
+    <div class="status">
+      <h1>Лист закупки</h1>
+
+  {% for obj in purchases %}
+
+    <div class="card mt-2" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{ obj.name }} - {{ obj.total }}</h5>
+    <input type="hidden" name="orders" value="{{ obj.pk }}">
+    <button
+	hx-get="is_booking/{{ obj.pk }}/"
+	hx-target="#modals-here"
+	hx-trigger="click"
+	class="btn btn-primary"
+	_="on htmx:afterOnLoad wait 10ms then add .show to #modal then add .show to #modal-backdrop">Убрать из листа</button>
+  </div>
+</div>
+
+
+{% endfor %}
+
+
+<div id="modals-here"></div>
+</div>
+  </form>
+</div>
 
 {% endblock %}
-
