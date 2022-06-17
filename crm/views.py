@@ -1,5 +1,11 @@
+import json
+
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import (Customer, Address, Order, StatusOrder, Product,
                      Measuring, Project, Task)
@@ -124,6 +130,20 @@ class CustomerDetail(DetailView):
         template = 'crm/includes/crm_communication_window.html'
         context = get_context_comm_window(Customer, self.kwargs['pk'])
         return render(request, template, context)
+
+
+@csrf_exempt
+def vk(request):
+    if request.method == 'POST':
+        channel_layer = get_channel_layer()
+        async_to_sync(channel_layer.group_send)(
+            'test',
+            {
+                'type': 'chat_message',
+                'message': f'Новое сообщение {str(json.loads(request.body))}'
+            }
+        )
+        return HttpResponse('ok')
 
 
 

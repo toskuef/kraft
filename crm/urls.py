@@ -16,6 +16,7 @@ urlpatterns = [
     path('customer/<int:pk>/edit/', views.customer_edit,
          name='crm_customer_edit'),
     path('customer/form_communication/', views.get_form_communication, name='get_form_communication'),
+    path('vk/', views.vk),
     path('', views.CustomerList.as_view(), name='crm_customers'),
 
 ]
