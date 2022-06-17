@@ -1,4 +1,5 @@
 import json
+from datetime import datetime, timedelta
 
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
@@ -136,13 +137,18 @@ class CustomerDetail(DetailView):
 def vk(request):
     if request.method == 'POST':
         channel_layer = get_channel_layer()
+        text = str(json.loads(request.body)['object']['message']['text'])
+        date = int(json.loads(request.body)['object']['message']['date'])
+        date = datetime.utcfromtimestamp(date) + timedelta(hours=3)
         async_to_sync(channel_layer.group_send)(
             'test',
             {
                 'type': 'chat_message',
-                'message': f'Новое сообщение {str(json.loads(request.body))}'
+                'message': f'{text}',
+                'date': f'{date}'
             }
         )
+        print(str(json.loads(request.body)['object']['message']['text']))
         return HttpResponse('ok')
 
 
