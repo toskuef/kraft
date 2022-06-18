@@ -12,8 +12,7 @@ urlpatterns = [
     path('production/', include('production.urls', namespace='production')),
     path('supply/', include('supply.urls', namespace='supply')),
     path('drag/', include('drag.urls')),
-    path('', include('chat.urls')),
-    # path('', include('main.urls', namespace='main')),
+    path('', include('main.urls', namespace='main')),
 
 
 ]

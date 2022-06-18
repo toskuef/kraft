@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'production.apps.ProductionConfig',
     'supply.apps.SupplyConfig',
     'drag.apps.DragConfig',
-    'chat.apps.ChatConfig',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'crm.LoginRequiredMiddleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'kraft.urls'
@@ -153,5 +153,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = 'users:login'
+LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = 'crm:crm_customers'
+LOGOUT_REDIRECT_URL = 'users:login'
